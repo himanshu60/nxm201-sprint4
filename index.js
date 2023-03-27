@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 })
 
-app.post("/", authmiddleware,(req, res) => {
+app.post("/", (req, res) => {
     const query = req.body.cityName
     const apiKey = "93f2eaad7733d65ea7833208ee588cfe"
     const weatherurl = 'https://api.openweathermap.org/data/2.5/weather?q=' + query + '&appid=' + apiKey
@@ -35,9 +35,9 @@ app.post("/", authmiddleware,(req, res) => {
         response.on("data", (data) => {
             const weatherData = JSON.parse(data);
             console.log(weatherData)
-            const temperature = weatherData.main.temperature;
-            const details = weatherData.weather[0].details
-            // console.log(discription)
+            const temperature = weatherData.main.temp;
+            const details = weatherData.weather[0].description
+            console.log(details)
             res.send(`City temperature in ${query} is ${temperature} degree celcius \n And weather data is ${details}`)
         })
     })
